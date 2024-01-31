@@ -20,7 +20,7 @@ echo "<html>
   </body>
 </html>" > /data/web_static/releases/test/index.html
 
-sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
+sudo ln -sf /data/web_static/releases/test /data/web_static/current
 
 sudo chown -hR ubuntu:ubuntu /data/
 
