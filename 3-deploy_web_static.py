@@ -1,10 +1,11 @@
 #!/usr/bin/python3
-# 3. Full deployment
+"""3. Full deployment of two servers"""
 
 
 from fabric.api import *
-import datetime
 import os
+import datetime
+
 
 env.hosts = ["34.224.62.130", "3.94.213.33"]
 
@@ -47,6 +48,6 @@ def deploy():
     """creates and distributes an archive to your web servers
     using the function"""
     archive_path = do_pack()
-    if archive_path is None:
+    if os.path.exists(archive_path) is False:
         return False
     return do_deploy(archive_path)
