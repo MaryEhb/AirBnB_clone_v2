@@ -6,6 +6,8 @@ from fabric.api import *
 import datetime
 import os
 
+env.hosts = ["34.224.62.130", "3.94.213.33"]
+
 
 def do_pack():
     """Compress before sending"""
