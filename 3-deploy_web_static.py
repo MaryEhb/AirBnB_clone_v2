@@ -6,17 +6,20 @@ from fabric.api import *
 import os
 import datetime
 env.hosts = ["34.224.62.130", "3.94.213.33"]
+path = None
 
 
 def do_pack():
     """Compress before sending"""
-    local("mkdir -p versions")
-    created_at = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-    path = "versions/web_static_{}.tgz".format(created_at)
-    command = local("sudo tar -cvzf {} web_static".format(path))
-    if command.succeeded:
+    global path
+    try:
+        if path is None:
+            local("mkdir -p versions")
+            created_at = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+            path = "versions/web_static_{}.tgz".format(created_at)
+            command = local("sudo tar -cvzf {} web_static".format(path))
         return path
-    else:
+    except Exception:
         return None
 
 
