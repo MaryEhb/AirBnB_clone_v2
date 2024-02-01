@@ -1,11 +1,22 @@
 #!/usr/bin/python3
-# 2. Deploy archive!
+# 3. Full deployment
+
 
 from fabric.api import *
+import datetime
 import os
 
 
-env.hosts = ["34.224.62.130", "3.94.213.33"]
+def do_pack():
+    """Compress before sending"""
+    local("mkdir -p versions")
+    created_at = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    path = "versions/web_static_{}.tgz".format(created_at)
+    command = local("sudo tar -cvzf {} web_static".format(path))
+    if command.succeeded:
+        return path
+    else:
+        return None
 
 
 def do_deploy(archive_path):
@@ -28,3 +39,12 @@ def do_deploy(archive_path):
         return True
     except Exception:
         return False
+
+
+def deploy():
+    """creates and distributes an archive to your web servers
+    using the function"""
+    archive_path = do_pack()
+    if archive_path is None:
+        return False
+    return do_deploy(archive_path)
