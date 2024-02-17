@@ -7,13 +7,12 @@ from models.state import State
 
 app = Flask(__name__)
 
-states = storage.all(State)
-
 
 @app.route('/states', strict_slashes=False)
 @app.route('/states/<id>', strict_slashes=False)
 def show_states(id=None):
     """show states"""
+    states = storage.all(State)
     try:
         state = states['State.' + id] if id is not None else None
     except (KeyError):
