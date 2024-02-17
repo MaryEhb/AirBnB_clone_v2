@@ -20,7 +20,7 @@ class State(BaseModel, Base):
         def cities(self):
             """get cities  linked to state"""
             cities = []
-            cities_dict = models.storage.all(models.City)
+            cities_dict = storage.all(models.City)
             for key, value in cities_dict.items():
                 if self.id == value.state_id:
                     cities.append(value)
