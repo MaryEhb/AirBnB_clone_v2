@@ -17,11 +17,11 @@ class State(BaseModel, Base):
     else:
         name = ""
 
-    def cities(self):
-        """get cities  linked to state"""
-        cities = []
-        cities_dict = storage.all(City)
-        for key, value in cities_dict.items():
-            if self.id == value.state_id:
-                cities.append(value)
-        return cities
+        def cities(self):
+            """get cities  linked to state"""
+            cities = []
+            cities_dict = storage.all(City)
+            for key, value in cities_dict.items():
+                if self.id == value.state_id:
+                    cities.append(value)
+            return cities
